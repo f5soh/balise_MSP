@@ -168,12 +168,12 @@ void loop()
             // On traite le cas où la position GPS est valide.
             // On renseigne le point de démarrage quand la précision est satisfaisante
             if (!drone_idfr.has_home_set()) {             
-               // No Hdop data with MSP protocol so wait a stable altitude for 3s
+               // No Hdop data with regular MSP protocol (INAV data only), so wait a stable altitude for 3s
                if (fabs(alt_prev - gps.alt) > 0.5) {
                   alt_count = 0;
                   alt_prev = gps.alt;
                } else {
-                  if (++alt_count >= 30) {
+                  if (++alt_count >= 30 && (gps.hdop/100) < 2.0) {
                     Serial.println("Setting Home Position");
                     drone_idfr.set_home_position(gps.lat, gps.lon, gps.alt);
                   }

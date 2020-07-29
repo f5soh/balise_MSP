@@ -356,7 +356,7 @@ struct msp_raw_gps_t {
   int16_t  alt;           // meters
   int16_t  groundSpeed;   // cm/s
   int16_t  groundCourse;  // unit: degree x 10
-  //uint16_t hdop;
+  uint16_t hdop;  // INAV specific
 } __attribute__ ((packed));
 
 
